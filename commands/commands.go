@@ -38,8 +38,8 @@ func testEmbedCommand(s *discordgo.Session, i *discordgo.InteractionCreate) {
 		SetDescription("Description test embed command").
 		AddField("I am a field", "I am a value").
 		AddField("I am a second field", "I am a value").
-		SetImage("https://cdn.discordapp.com/avatars/119249192806776836/cc32c5c3ee602e1fe252f9f595f9010e.jpg?size=2048").
-		SetThumbnail("https://cdn.discordapp.com/avatars/119249192806776836/cc32c5c3ee602e1fe252f9f595f9010e.jpg?size=2048").
+		SetImage("https://picsum.photos/500").
+		SetThumbnail("https://picsum.photos/100").
 		SetColor(0x00ff00).MessageEmbed
 
 	s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
