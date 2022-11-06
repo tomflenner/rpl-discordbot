@@ -38,7 +38,7 @@ func RegisterCommands() {
 		RegisteredCommand[i] = cmd
 	}
 
-	log.Println("Handling commands...")
+	//Adding an event that trigger on registered command call
 	S.AddHandler(func(s *discordgo.Session, i *discordgo.InteractionCreate) {
 		if h, ok := commands.CommandHandlers[i.ApplicationCommandData().Name]; ok {
 			h(s, i)
