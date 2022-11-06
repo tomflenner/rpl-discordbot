@@ -5,21 +5,26 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
+const (
+	testCommandName      string = "test-command"
+	testEmbedCommandName string = "test-embed-command"
+)
+
 var (
 	Commands = []*discordgo.ApplicationCommand{
 		{
-			Name:        "test-command",
+			Name:        testCommandName,
 			Description: "Test command",
 		},
 		{
-			Name:        "test-embed-command",
+			Name:        testEmbedCommandName,
 			Description: "Test embed command",
 		},
 	}
 
 	CommandHandlers = map[string]func(s *discordgo.Session, i *discordgo.InteractionCreate){
-		"test-command":       testCommand,
-		"test-embed-command": testEmbedCommand,
+		testCommandName:      testCommand,
+		testEmbedCommandName: testEmbedCommand,
 	}
 )
 
