@@ -15,16 +15,16 @@ func InitializeSession() {
 	var err error
 	S, err = discordgo.New("Bot " + config.Cfg.BotToken)
 
+	//Display message on ready
+	S.AddHandler(func(s *discordgo.Session, r *discordgo.Ready) {
+		log.Printf("Logged in as: %v#%v", s.State.User.Username, s.State.User.Discriminator)
+	})
+
 	err = S.Open()
 
 	if err != nil {
 		log.Fatalf("Cannot open the session: %v", err)
 	}
-
-	//Display message on ready
-	S.AddHandler(func(s *discordgo.Session, r *discordgo.Ready) {
-		log.Printf("Logged in as: %v#%v", s.State.User.Username, s.State.User.Discriminator)
-	})
 }
 
 func RegisterCommands() {
