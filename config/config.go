@@ -22,7 +22,7 @@ func getConfigValue(key string) string {
 	value = os.Getenv(key)
 
 	if value == "" {
-		log.Fatal(fmt.Sprintf("Error loading %s from env"))
+		log.Fatal(fmt.Sprintf("Error loading %s from env", key))
 	}
 
 	return value
