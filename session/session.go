@@ -44,6 +44,7 @@ func RegisterCommands() {
 			h(s, i)
 		}
 	})
+	log.Println("Commands added !")
 }
 
 func RemoveCommands() {
@@ -54,4 +55,5 @@ func RemoveCommands() {
 			log.Panicf("Cannot delete '%v' command: %v", v.Name, err)
 		}
 	}
+	log.Println("Commands removed !")
 }
