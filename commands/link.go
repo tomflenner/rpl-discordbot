@@ -7,6 +7,7 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
+// Command definition
 const LinkCommandName = "link"
 
 var (
@@ -22,7 +23,10 @@ var (
 			},
 		},
 	}
+)
 
+// Messages
+var (
 	playerNotFoundErrorMsg = &discordgo.InteractionResponse{
 		Type: discordgo.InteractionResponseChannelMessageWithSource,
 		Data: &discordgo.InteractionResponseData{
