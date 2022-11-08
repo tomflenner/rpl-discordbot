@@ -35,7 +35,21 @@ func InitializeConfig() {
 
 	Cfg = models.Config{}
 
-	var botToken string
-	botToken = getConfigValue("BOT_TOKEN")
+	var botToken string = getConfigValue("BOT_TOKEN")
 	Cfg.BotToken = botToken
+
+	var dbUser string = getConfigValue("DB_USER")
+	Cfg.DbUser = dbUser
+
+	var dbPassword string = getConfigValue("DB_PASSWORD")
+	Cfg.DbPassword = dbPassword
+
+	var dbHost string = getConfigValue("DB_HOST")
+	Cfg.DbHost = dbHost
+
+	var dbPort string = getConfigValue("DB_PORT")
+	Cfg.DbPort = dbPort
+
+	var dbName string = getConfigValue("DB_NAME")
+	Cfg.DbName = dbName
 }

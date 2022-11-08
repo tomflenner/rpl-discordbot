@@ -6,11 +6,13 @@ import (
 	"os/signal"
 
 	"github.com/b4cktr4ck5r3/rpl-discordbot/config"
+	"github.com/b4cktr4ck5r3/rpl-discordbot/database"
 	"github.com/b4cktr4ck5r3/rpl-discordbot/session"
 )
 
 func main() {
 	config.InitializeConfig()
+	database.InitializeDatabaseConnection()
 	session.InitializeSession()
 	session.RegisterCommands()
 

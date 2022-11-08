@@ -20,11 +20,13 @@ var (
 			Name:        testEmbedCommandName,
 			Description: "Test embed command",
 		},
+		LinkCommand,
 	}
 
 	CommandHandlers = map[string]func(s *discordgo.Session, i *discordgo.InteractionCreate){
 		testCommandName:      testCommand,
 		testEmbedCommandName: testEmbedCommand,
+		LinkCommandName:      LinkCommandHandler,
 	}
 )
 
