@@ -52,4 +52,13 @@ func InitializeConfig() {
 
 	var dbName string = getConfigValue("DB_NAME")
 	Cfg.DbName = dbName
+
+	var guildId string = getConfigValue("GUILD_ID")
+	Cfg.GuildID = guildId
+
+	var statsChannelId string = getConfigValue("STATS_CHANNEL_ID")
+	Cfg.StatsChannelID = statsChannelId
+
+	var linkChannelID string = getConfigValue("LINK_CHANNEL_ID")
+	Cfg.LinkChannelID = linkChannelID
 }

@@ -3,6 +3,7 @@ package commands
 import (
 	"database/sql"
 
+	"github.com/b4cktr4ck5r3/rpl-discordbot/config"
 	"github.com/b4cktr4ck5r3/rpl-discordbot/database"
 	"github.com/bwmarrin/discordgo"
 )
@@ -31,6 +32,7 @@ var (
 		Type: discordgo.InteractionResponseChannelMessageWithSource,
 		Data: &discordgo.InteractionResponseData{
 			Content: "Code d'activation introuvable.",
+			Flags:   discordgo.MessageFlagsEphemeral,
 		},
 	}
 
@@ -38,6 +40,7 @@ var (
 		Type: discordgo.InteractionResponseChannelMessageWithSource,
 		Data: &discordgo.InteractionResponseData{
 			Content: "Le compte Steam est déjà associé à un compte Discord.",
+			Flags:   discordgo.MessageFlagsEphemeral,
 		},
 	}
 
@@ -45,6 +48,7 @@ var (
 		Type: discordgo.InteractionResponseChannelMessageWithSource,
 		Data: &discordgo.InteractionResponseData{
 			Content: "Une erreur s'est produite lors de la liaison, veuillez contacter un administrateur.",
+			Flags:   discordgo.MessageFlagsEphemeral,
 		},
 	}
 
@@ -52,34 +56,38 @@ var (
 		Type: discordgo.InteractionResponseChannelMessageWithSource,
 		Data: &discordgo.InteractionResponseData{
 			Content: "Compte lié avec succès !",
+			Flags:   discordgo.MessageFlagsEphemeral,
 		},
 	}
 )
 
 func LinkCommandHandler(s *discordgo.Session, i *discordgo.InteractionCreate) {
-	options := i.ApplicationCommandData().Options
+	if canExecuteRestrictedCommand(i, config.Cfg.LinkChannelID) {
+		options := i.ApplicationCommandData().Options
 
-	player, err := database.SelectPlayerByLinkCode(options[0].StringValue())
+		player, err := database.SelectPlayerByLinkCode(options[0].StringValue())
 
-	if err != nil {
-		s.InteractionRespond(i.Interaction, playerNotFoundErrorMsg)
+		if err != nil {
+			s.InteractionRespond(i.Interaction, playerNotFoundErrorMsg)
+		}
+
+		if player.DiscordID.Valid {
+			s.InteractionRespond(i.Interaction, playerAlreadyRegisteredErrorMsg)
+		}
+
+		player.DiscordID = sql.NullString{
+			String: i.Interaction.Member.User.ID,
+			Valid:  true,
+		}
+
+		ok, err := database.UpdatePlayer(player)
+
+		if err != nil || !ok {
+			s.InteractionRespond(i.Interaction, playerRegisteredErrorMsg)
+		}
+
+		s.InteractionRespond(i.Interaction, playerRegisteredSuccessMsg)
+	} else {
+		s.InteractionRespond(i.Interaction, notAuthorized)
 	}
-
-	if player.DiscordID.Valid {
-		s.InteractionRespond(i.Interaction, playerAlreadyRegisteredErrorMsg)
-	}
-
-	player.DiscordID = sql.NullString{
-		String: i.Interaction.Member.User.ID,
-		Valid:  true,
-	}
-
-	ok, err := database.UpdatePlayer(player)
-
-	if err != nil || !ok {
-		s.InteractionRespond(i.Interaction, playerRegisteredErrorMsg)
-	}
-
-	s.InteractionRespond(i.Interaction, playerRegisteredSuccessMsg)
-
 }
