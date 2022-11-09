@@ -28,7 +28,7 @@ var (
 
 // Messages
 var (
-	playerNotFoundErrorMsg = &discordgo.InteractionResponse{
+	playerNotFoundWithLinkCodeErrorMsg = &discordgo.InteractionResponse{
 		Type: discordgo.InteractionResponseChannelMessageWithSource,
 		Data: &discordgo.InteractionResponseData{
 			Content: "Code d'activation introuvable.",
@@ -68,7 +68,7 @@ func LinkCommandHandler(s *discordgo.Session, i *discordgo.InteractionCreate) {
 		player, err := database.SelectPlayerByLinkCode(options[0].StringValue())
 
 		if err != nil {
-			s.InteractionRespond(i.Interaction, playerNotFoundErrorMsg)
+			s.InteractionRespond(i.Interaction, playerNotFoundWithLinkCodeErrorMsg)
 		}
 
 		if player.DiscordID.Valid {
