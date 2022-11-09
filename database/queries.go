@@ -13,6 +13,9 @@ var (
 	//go:embed sql/selectplayerwherediscordid.sql
 	queryPlayerWhereDiscordId string
 
+	//go:embed sql/selectplayerwheresteamid.sql
+	queryPlayerWhereSteamId string
+
 	//go:embed sql/updateplayer.sql
 	queryUpdatePlayer string
 )
@@ -34,6 +37,21 @@ func SelectPlayerByLinkCode(linkCode string) (models.Player, error) {
 
 func SelectPlayerByDiscordId(discordId string) (models.Player, error) {
 	row := Db.QueryRow(queryPlayerWhereDiscordId, discordId)
+	player := models.Player{}
+
+	err := row.Scan(
+		&player.SteamID,
+		&player.Name,
+		&player.PermsLvl,
+		&player.DiscordID,
+		&player.LinkCode,
+	)
+
+	return player, err
+}
+
+func SelectPlayerBySteamId(steamId string) (models.Player, error) {
+	row := Db.QueryRow(queryPlayerWhereSteamId, steamId)
 	player := models.Player{}
 
 	err := row.Scan(

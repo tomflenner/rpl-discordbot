@@ -10,20 +10,30 @@ var (
 		LinkCommand,
 		StatsCommand,
 		StatsDiscordCommand,
+		StatsSteamStatsSteamProfile,
 	}
 
 	CommandHandlers = map[string]func(s *discordgo.Session, i *discordgo.InteractionCreate){
-		LinkCommandName:         LinkCommandHandler,
-		StatsCommandName:        StatsCommandHandler,
-		StatsDiscordCommandName: StatsCommandHandler,
+		LinkCommandName:              LinkCommandHandler,
+		StatsCommandName:             StatsCommandHandler,
+		StatsDiscordCommandName:      StatsDiscordCommandHandler,
+		StatsSteamProfileCommandName: StatsSteamCommandHandler,
 	}
 )
 
 var (
-	notAuthorized = &discordgo.InteractionResponse{
+	notAuthorizedMsg = &discordgo.InteractionResponse{
 		Type: discordgo.InteractionResponseChannelMessageWithSource,
 		Data: &discordgo.InteractionResponseData{
 			Content: "Cette commande n'est pas autorisée ici.",
+			Flags:   discordgo.MessageFlagsEphemeral,
+		},
+	}
+
+	errorMsg = &discordgo.InteractionResponse{
+		Type: discordgo.InteractionResponseChannelMessageWithSource,
+		Data: &discordgo.InteractionResponseData{
+			Content: "Une erreur s'est produite, veuillez contacter un administrateur.",
 			Flags:   discordgo.MessageFlagsEphemeral,
 		},
 	}

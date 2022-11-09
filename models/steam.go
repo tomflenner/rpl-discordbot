@@ -1,10 +1,10 @@
 package models
 
 type SteamApiPlayerSummariesResponse struct {
-	Response Response `json:"response"`
+	Response PlayerSummariesResponse `json:"response"`
 }
 
-type Response struct {
+type PlayerSummariesResponse struct {
 	SteamAccounts []SteamAccountSummaries `json:"players"`
 }
 
@@ -25,4 +25,13 @@ type SteamAccountSummaries struct {
 	Realname                 string `json:"realname"`
 	Steamid                  string `json:"steamid"`
 	Timecreated              int64  `json:"timecreated"`
+}
+
+type SteamApiCustomIDResolverResponse struct {
+	Response CustomIDResolverResponse `json:"response"`
+}
+
+type CustomIDResolverResponse struct {
+	Steamid string `json:"steamid"`
+	Success int64  `json:"success"`
 }

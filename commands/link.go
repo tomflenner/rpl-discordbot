@@ -88,6 +88,6 @@ func LinkCommandHandler(s *discordgo.Session, i *discordgo.InteractionCreate) {
 
 		s.InteractionRespond(i.Interaction, playerRegisteredSuccessMsg)
 	} else {
-		s.InteractionRespond(i.Interaction, notAuthorized)
+		s.InteractionRespond(i.Interaction, notAuthorizedMsg)
 	}
 }
