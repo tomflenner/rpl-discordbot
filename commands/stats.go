@@ -13,9 +13,15 @@ import (
 )
 
 // Command definition
+const StatsCommandName = "stats"
 const StatsDiscordCommandName = "stats-discord"
 
 var (
+	StatsCommand = &discordgo.ApplicationCommand{
+		Name:        StatsCommandName,
+		Description: "Récupérer vos stats.",
+	}
+
 	StatsDiscordCommand = &discordgo.ApplicationCommand{
 		Name:        StatsDiscordCommandName,
 		Description: "Récupérer les stats d'un joueur à partir de son compte discord.",
@@ -57,11 +63,19 @@ var (
 	}
 )
 
-func StatsDiscordCommandHandler(s *discordgo.Session, i *discordgo.InteractionCreate) {
+func StatsCommandHandler(s *discordgo.Session, i *discordgo.InteractionCreate) {
 	if canExecuteRestrictedCommand(i, config.Cfg.StatsChannelID) {
+		var discordId string
+
 		options := i.ApplicationCommandData().Options
 
-		player, err := database.SelectPlayerByDiscordId(options[0].UserValue(s).ID)
+		if len(options) > 0 {
+			discordId = options[0].UserValue(s).ID
+		} else {
+			discordId = i.Member.User.ID
+		}
+
+		player, err := database.SelectPlayerByDiscordId(discordId)
 
 		if err != nil {
 			s.InteractionRespond(i.Interaction, playerNotFoundWithDiscordIdErrorMsg)

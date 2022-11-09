@@ -8,12 +8,14 @@ import (
 var (
 	Commands = []*discordgo.ApplicationCommand{
 		LinkCommand,
+		StatsCommand,
 		StatsDiscordCommand,
 	}
 
 	CommandHandlers = map[string]func(s *discordgo.Session, i *discordgo.InteractionCreate){
 		LinkCommandName:         LinkCommandHandler,
-		StatsDiscordCommandName: StatsDiscordCommandHandler,
+		StatsCommandName:        StatsCommandHandler,
+		StatsDiscordCommandName: StatsCommandHandler,
 	}
 )
 
