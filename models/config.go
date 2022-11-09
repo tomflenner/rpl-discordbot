@@ -10,4 +10,5 @@ type Config struct {
 	GuildID        string
 	StatsChannelID string
 	LinkChannelID  string
+	SteamApiKey    string
 }

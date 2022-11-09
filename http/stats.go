@@ -3,7 +3,7 @@ package http
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 
@@ -21,7 +21,7 @@ func GetPlayerStats(steamId string) (models.StatsApiPlayerResponse, error) {
 	}
 
 	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 
 	if err := json.Unmarshal(body, &playerStats); err != nil {
 		log.Println("Erreur sur l'unmarshal de la réponse à la requête GetPlayerStats: ", err.Error())

@@ -47,6 +47,14 @@ var (
 			Flags:   discordgo.MessageFlagsEphemeral,
 		},
 	}
+
+	playerSummariesRequestErrorMsg = &discordgo.InteractionResponse{
+		Type: discordgo.InteractionResponseChannelMessageWithSource,
+		Data: &discordgo.InteractionResponseData{
+			Content: "Une erreur s'est produite lors de la récupération des informations steam liées à l'utilisateur, veuillez contacter un administrateur.",
+			Flags:   discordgo.MessageFlagsEphemeral,
+		},
+	}
 )
 
 func StatsDiscordCommandHandler(s *discordgo.Session, i *discordgo.InteractionCreate) {
@@ -65,8 +73,15 @@ func StatsDiscordCommandHandler(s *discordgo.Session, i *discordgo.InteractionCr
 			s.InteractionRespond(i.Interaction, playerStatRequestErrorMsg)
 		}
 
+		playerSummaries, err := http.GetPlayerSteamAccountSummaries(player.SteamID)
+
+		if err != nil {
+			s.InteractionRespond(i.Interaction, playerSummariesRequestErrorMsg)
+		}
+
 		var color int
 		var ratio string
+
 		if playerStats.Ratio > 1 {
 			color = 0x00FF00
 			ratio = "📈 Ratio"
@@ -78,7 +93,7 @@ func StatsDiscordCommandHandler(s *discordgo.Session, i *discordgo.InteractionCr
 		currentTime := time.Now()
 		embed := models.NewEmbed().
 			SetTitle(fmt.Sprintf("📊 Statistiques du joueur %s", player.Name)).
-			SetDescription("Données officielles issue du classement des serveurs Retake Pro League.").
+			SetDescription("Données officielles du classement des serveurs Retake Pro League.").
 			AddField("🏆 Rang", strconv.Itoa(int(playerStats.Rank))).
 			AddField("🔫 Kills", strconv.Itoa(int(playerStats.Kills))).
 			AddField("💀 Morts", strconv.Itoa(int(playerStats.Kills))).
@@ -87,7 +102,7 @@ func StatsDiscordCommandHandler(s *discordgo.Session, i *discordgo.InteractionCr
 			AddField("💥 Headshots %", strconv.Itoa(int(playerStats.HeadshotsPercent))).
 			InlineAllFields().
 			SetFooter(fmt.Sprintf("Généré le %s", currentTime.Local().Format("02-Jan-2006 15:04:05"))).
-			SetThumbnail("https://picsum.photos/100").
+			SetThumbnail(playerSummaries.Avatarmedium).
 			SetColor(color).MessageEmbed
 
 		s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{

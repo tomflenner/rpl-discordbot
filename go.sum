@@ -1,3 +1,5 @@
+github.com/MrWaggel/gosteamconv v0.0.0-20190214041723-97e1fbb6de26 h1:ueOhRjLBgJSMLfP08MbIudnk5Pq86CbKmy6+PgzSgno=
+github.com/MrWaggel/gosteamconv v0.0.0-20190214041723-97e1fbb6de26/go.mod h1:2/l5MBbGIGPrCN+J8kM0ZDW/IRz1AmlarQai3iajPJc=
 github.com/bwmarrin/discordgo v0.26.1 h1:AIrM+g3cl+iYBr4yBxCBp9tD9jR3K7upEjl0d89FRkE=
 github.com/bwmarrin/discordgo v0.26.1/go.mod h1:NJZpH+1AfhIcyQsPeuBKsUtYrRnjkyu0kIVMCHkZtRY=
 github.com/go-sql-driver/mysql v1.6.0 h1:BCTh4TKNUYmOmMUcQ3IipzF5prigylS7XXjEkfCHuOE=

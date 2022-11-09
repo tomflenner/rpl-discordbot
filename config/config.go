@@ -61,4 +61,7 @@ func InitializeConfig() {
 
 	var linkChannelID string = getConfigValue("LINK_CHANNEL_ID")
 	Cfg.LinkChannelID = linkChannelID
+
+	var steamApiKey string = getConfigValue("STEAM_API_KEY")
+	Cfg.SteamApiKey = steamApiKey
 }
