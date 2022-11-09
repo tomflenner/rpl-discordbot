@@ -2,7 +2,7 @@ package models
 
 import "github.com/bwmarrin/discordgo"
 
-// Embed ...
+// Embed see https://gist.github.com/Necroforger/8b0b70b1a69fa7828b8ad6387ebb3835 for credits...
 type Embed struct {
 	*discordgo.MessageEmbed
 }
