@@ -13,16 +13,15 @@ func loadDotEnv() {
 	var err error = godotenv.Load(".env")
 
 	if err != nil {
-		log.Fatal("Error loading .env file: " + err.Error())
+		log.Println("WARNING! Error loading .env file: " + err.Error())
 	}
 }
 
 func getConfigValue(key string) string {
-	var value string
-	value = os.Getenv(key)
+	var value string = os.Getenv(key)
 
 	if value == "" {
-		log.Fatal(fmt.Sprintf("Error loading %s from env", key))
+		log.Fatalf(fmt.Sprintf("Error loading %s from env", key))
 	}
 
 	return value
