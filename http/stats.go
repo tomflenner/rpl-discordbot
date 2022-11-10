@@ -7,13 +7,14 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/b4cktr4ck5r3/rpl-discordbot/config"
 	"github.com/b4cktr4ck5r3/rpl-discordbot/models"
 )
 
 func GetPlayerStats(steamId string) (models.StatsApiPlayerResponse, error) {
 	var playerStats models.StatsApiPlayerResponse
 
-	resp, err := http.Get(fmt.Sprintf("http://localhost:8080/api/players/%s", steamId))
+	resp, err := http.Get(fmt.Sprintf("http://%s/api/players/%s", config.Cfg.StatsApiUrl, steamId))
 
 	if err != nil {
 		log.Println("Erreur sur la requête GetPlayerStat: ", err.Error())

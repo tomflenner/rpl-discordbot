@@ -11,4 +11,5 @@ type Config struct {
 	StatsChannelID string
 	LinkChannelID  string
 	SteamApiKey    string
+	StatsApiUrl    string
 }

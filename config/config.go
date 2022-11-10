@@ -63,4 +63,7 @@ func InitializeConfig() {
 
 	var steamApiKey string = getConfigValue("STEAM_API_KEY")
 	Cfg.SteamApiKey = steamApiKey
+
+	var statsApiUrl string = getConfigValue("STATS_API_URL")
+	Cfg.StatsApiUrl = statsApiUrl
 }
