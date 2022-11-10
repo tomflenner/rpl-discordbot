@@ -14,7 +14,7 @@ import (
 )
 
 // Command definition
-const StatsSteamProfileCommandName = "stats-steam-profile"
+const StatsSteamProfileCommandName = "stats-steam-profil"
 
 var (
 	StatsSteamStatsSteamProfile = &discordgo.ApplicationCommand{
