@@ -60,13 +60,14 @@ func StatsDiscordCommandHandler(s *discordgo.Session, i *discordgo.InteractionCr
 		player, err := database.SelectPlayerByDiscordId(discordId)
 
 		if err != nil {
+			log.Println("1 - Erreur lors du stats-discord: ", err.Error())
 			s.InteractionRespond(i.Interaction, playerNotFoundWithDiscordIdErrorMsg)
 		}
 
 		steam64, err := gosteamconv.SteamStringToInt64(player.SteamID)
 
 		if err != nil {
-			log.Println("Erreur lors de la conversion du SteamID en Steam64")
+			log.Println("2 - Erreur lors de la conversion du SteamID en Steam64: ", err.Error())
 			s.InteractionRespond(i.Interaction, errorMsg)
 		}
 

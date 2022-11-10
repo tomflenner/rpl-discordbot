@@ -2,6 +2,8 @@
 package commands
 
 import (
+	"log"
+
 	"github.com/b4cktr4ck5r3/rpl-discordbot/http"
 	"github.com/b4cktr4ck5r3/rpl-discordbot/models"
 	"github.com/b4cktr4ck5r3/rpl-discordbot/utils"
@@ -31,12 +33,14 @@ func getPlayerStatsAndSummaries(i *discordgo.InteractionCreate, s *discordgo.Ses
 	playerStats, err := http.GetPlayerStats(player.SteamID)
 
 	if err != nil {
+		log.Println("1 - Erreur lors de getPlayerStatsAndSummaries: ", err.Error())
 		s.InteractionRespond(i.Interaction, playerStatRequestErrorMsg)
 	}
 
 	playerSummaries, err := http.GetPlayerSteamAccountSummaries(steam64)
 
 	if err != nil {
+		log.Println("2 - Erreur lors de getPlayerStatsAndSummaries: ", err.Error())
 		s.InteractionRespond(i.Interaction, playerSummariesRequestErrorMsg)
 	}
 	return playerStats, playerSummaries

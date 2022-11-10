@@ -2,6 +2,7 @@ package commands
 
 import (
 	"database/sql"
+	"log"
 
 	"github.com/b4cktr4ck5r3/rpl-discordbot/config"
 	"github.com/b4cktr4ck5r3/rpl-discordbot/database"
@@ -68,6 +69,7 @@ func LinkCommandHandler(s *discordgo.Session, i *discordgo.InteractionCreate) {
 		player, err := database.SelectPlayerByLinkCode(options[0].StringValue())
 
 		if err != nil {
+			log.Println("1 - Erreur du link: ", err.Error())
 			s.InteractionRespond(i.Interaction, playerNotFoundWithLinkCodeErrorMsg)
 		}
 
@@ -83,6 +85,7 @@ func LinkCommandHandler(s *discordgo.Session, i *discordgo.InteractionCreate) {
 		ok, err := database.UpdatePlayer(player)
 
 		if err != nil || !ok {
+			log.Println("2 - Erreur du link: ", err.Error())
 			s.InteractionRespond(i.Interaction, playerRegisteredErrorMsg)
 		}
 
