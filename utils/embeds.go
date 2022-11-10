@@ -27,7 +27,7 @@ func CreateStatsEmbed(playerStats models.StatsApiPlayerResponse, player models.P
 		SetDescription("Données officielles du classement des serveurs Retake Pro League.").
 		AddField("🏆 Rang", strconv.Itoa(int(playerStats.Rank))).
 		AddField("🔫 Kills", strconv.Itoa(int(playerStats.Kills))).
-		AddField("💀 Morts", strconv.Itoa(int(playerStats.Kills))).
+		AddField("💀 Morts", strconv.Itoa(int(playerStats.Deaths))).
 		AddField(ratio, fmt.Sprintf("%.2f", playerStats.Ratio)).
 		AddField("🤯 Headshots", strconv.Itoa(int(playerStats.Headshots))).
 		AddField("💥 Headshots %", strconv.Itoa(int(playerStats.HeadshotsPercent))).

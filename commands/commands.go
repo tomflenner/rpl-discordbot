@@ -15,7 +15,7 @@ var (
 
 	CommandHandlers = map[string]func(s *discordgo.Session, i *discordgo.InteractionCreate){
 		LinkCommandName:              LinkCommandHandler,
-		StatsCommandName:             StatsCommandHandler,
+		StatsCommandName:             StatsDiscordCommandHandler,
 		StatsDiscordCommandName:      StatsDiscordCommandHandler,
 		StatsSteamProfileCommandName: StatsSteamCommandHandler,
 	}
