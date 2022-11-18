@@ -21,7 +21,7 @@ var (
 )
 
 func SelectPlayerByLinkCode(linkCode string) (models.Player, error) {
-	row := Db.QueryRow(queryPlayerWhereLinkCode, linkCode)
+	row := DbLink.QueryRow(queryPlayerWhereLinkCode, linkCode)
 	player := models.Player{}
 
 	err := row.Scan(
@@ -37,7 +37,7 @@ func SelectPlayerByLinkCode(linkCode string) (models.Player, error) {
 }
 
 func SelectPlayerByDiscordId(discordId string) (models.Player, error) {
-	row := Db.QueryRow(queryPlayerWhereDiscordId, discordId)
+	row := DbLink.QueryRow(queryPlayerWhereDiscordId, discordId)
 	player := models.Player{}
 
 	err := row.Scan(
@@ -53,7 +53,7 @@ func SelectPlayerByDiscordId(discordId string) (models.Player, error) {
 }
 
 func SelectPlayerBySteamId(steamId string) (models.Player, error) {
-	row := Db.QueryRow(queryPlayerWhereSteamId, steamId)
+	row := DbLink.QueryRow(queryPlayerWhereSteamId, steamId)
 	player := models.Player{}
 
 	err := row.Scan(
@@ -69,7 +69,7 @@ func SelectPlayerBySteamId(steamId string) (models.Player, error) {
 }
 
 func UpdatePlayer(player models.Player) (bool, error) {
-	_, err := Db.Exec(queryUpdatePlayer, player.DiscordID, player.SteamID, player.LinkCode.String)
+	_, err := DbLink.Exec(queryUpdatePlayer, player.DiscordID, player.SteamID, player.LinkCode.String)
 
 	if err != nil {
 		return false, err

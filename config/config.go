@@ -49,8 +49,11 @@ func InitializeConfig() {
 	var dbPort string = getConfigValue("DB_PORT")
 	Cfg.DbPort = dbPort
 
-	var dbName string = getConfigValue("DB_NAME")
-	Cfg.DbName = dbName
+	var dbLinkName string = getConfigValue("DB_LINK_NAME")
+	Cfg.DbLinkName = dbLinkName
+
+	var dbSkinsName string = getConfigValue("DB_SKINS_NAME")
+	Cfg.DbSkinsName = dbSkinsName
 
 	var guildId string = getConfigValue("GUILD_ID")
 	Cfg.GuildID = guildId

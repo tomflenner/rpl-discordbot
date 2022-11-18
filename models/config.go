@@ -6,7 +6,8 @@ type Config struct {
 	DbPassword     string
 	DbHost         string
 	DbPort         string
-	DbName         string
+	DbLinkName     string
+	DbSkinsName    string
 	GuildID        string
 	StatsChannelID string
 	LinkChannelID  string
