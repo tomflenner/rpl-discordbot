@@ -18,6 +18,12 @@ var (
 
 	//go:embed sql/updateplayer.sql
 	queryUpdatePlayer string
+
+	//go:embed sql/updateunlink.sql
+	queryUpdateUnlink string
+
+	//go:embed sql/deleteskins.sql
+	queryUpdateSkins string
 )
 
 func SelectPlayerByLinkCode(linkCode string) (models.Player, error) {
@@ -70,6 +76,26 @@ func SelectPlayerBySteamId(steamId string) (models.Player, error) {
 
 func UpdatePlayer(player models.Player) (bool, error) {
 	_, err := DbLink.Exec(queryUpdatePlayer, player.DiscordID, player.SteamID, player.LinkCode.String)
+
+	if err != nil {
+		return false, err
+	} else {
+		return true, err
+	}
+}
+
+func RemoveLinkFromUserWithDiscordId(steamId string) (bool, error) {
+	_, err := DbLink.Exec(queryUpdateUnlink, steamId)
+
+	if err != nil {
+		return false, err
+	} else {
+		return true, err
+	}
+}
+
+func DeleteSkinsWhereSteamId(steamId string) (bool, error) {
+	_, err := DbSkins.Exec(queryUpdateSkins, steamId)
 
 	if err != nil {
 		return false, err

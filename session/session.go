@@ -5,6 +5,7 @@ import (
 
 	"github.com/b4cktr4ck5r3/rpl-discordbot/commands"
 	"github.com/b4cktr4ck5r3/rpl-discordbot/config"
+	"github.com/b4cktr4ck5r3/rpl-discordbot/events"
 	"github.com/bwmarrin/discordgo"
 )
 
@@ -15,10 +16,13 @@ func InitializeSession() {
 	var err error
 	S, err = discordgo.New("Bot " + config.Cfg.BotToken)
 
-	//Display message on ready
-	S.AddHandler(func(s *discordgo.Session, r *discordgo.Ready) {
-		log.Printf("Logged in as: %v#%v", s.State.User.Username, s.State.User.Discriminator)
-	})
+	events.RegisterEvents(S)
+
+	if err != nil {
+		log.Fatalf("Error on bot initialization: %s", err.Error())
+	}
+
+	S.Identify.Intents = discordgo.MakeIntent(discordgo.IntentsAll)
 
 	err = S.Open()
 
@@ -44,6 +48,7 @@ func RegisterCommands() {
 			h(s, i)
 		}
 	})
+
 	log.Println("Commands added !")
 }
 
