@@ -62,6 +62,7 @@ func StatsDiscordCommandHandler(s *discordgo.Session, i *discordgo.InteractionCr
 		if err != nil {
 			log.Println("1 - Erreur lors du stats-discord: ", err.Error())
 			s.InteractionRespond(i.Interaction, playerNotFoundWithDiscordIdErrorMsg)
+			return;
 		}
 
 		steam64, err := gosteamconv.SteamStringToInt64(player.SteamID)
@@ -69,6 +70,7 @@ func StatsDiscordCommandHandler(s *discordgo.Session, i *discordgo.InteractionCr
 		if err != nil {
 			log.Println("2 - Erreur lors de la conversion du SteamID en Steam64: ", err.Error())
 			s.InteractionRespond(i.Interaction, errorMsg)
+			return;
 		}
 
 		playerStats, playerSummaries := getPlayerStatsAndSummaries(i, s, steam64, player)

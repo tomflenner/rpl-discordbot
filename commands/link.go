@@ -71,10 +71,12 @@ func LinkCommandHandler(s *discordgo.Session, i *discordgo.InteractionCreate) {
 		if err != nil {
 			log.Println("1 - Erreur du link: ", err.Error())
 			s.InteractionRespond(i.Interaction, playerNotFoundWithLinkCodeErrorMsg)
+			return;
 		}
 
 		if player.DiscordID.Valid {
 			s.InteractionRespond(i.Interaction, playerAlreadyRegisteredErrorMsg)
+			return;
 		}
 
 		player.DiscordID = sql.NullString{
@@ -87,6 +89,7 @@ func LinkCommandHandler(s *discordgo.Session, i *discordgo.InteractionCreate) {
 		if err != nil || !ok {
 			log.Println("2 - Erreur du link: ", err.Error())
 			s.InteractionRespond(i.Interaction, playerRegisteredErrorMsg)
+			return;
 		}
 
 		s.InteractionRespond(i.Interaction, playerRegisteredSuccessMsg)

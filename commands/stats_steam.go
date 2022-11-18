@@ -94,6 +94,7 @@ func getSteam64(urlType int, s *discordgo.Session, i *discordgo.InteractionCreat
 		if err != nil {
 			log.Println("1 - Erreur lors de la conversion de la string en int64 pour le steam64: ", err.Error())
 			s.InteractionRespond(i.Interaction, errorMsg)
+			return 0;
 		}
 	} else {
 		customId := utils.GetCustomIdFromUrl(url)
@@ -103,6 +104,7 @@ func getSteam64(urlType int, s *discordgo.Session, i *discordgo.InteractionCreat
 		if err != nil {
 			log.Println("2 - Erreur lors de getSteam64: ", err.Error())
 			s.InteractionRespond(i.Interaction, errorMsg)
+			return 0;
 		}
 	}
 	return steam64

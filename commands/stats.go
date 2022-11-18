@@ -43,6 +43,7 @@ func getPlayerStatsAndSummaries(i *discordgo.InteractionCreate, s *discordgo.Ses
 		log.Println("2 - Erreur lors de getPlayerStatsAndSummaries: ", err.Error())
 		s.InteractionRespond(i.Interaction, playerSummariesRequestErrorMsg)
 	}
+
 	return playerStats, playerSummaries
 }
 
