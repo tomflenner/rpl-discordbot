@@ -30,6 +30,7 @@ func SelectPlayerByLinkCode(linkCode string) (models.Player, error) {
 		&player.PermsLvl,
 		&player.DiscordID,
 		&player.LinkCode,
+		&player.CountUnlink,
 	)
 
 	return player, err
@@ -45,6 +46,7 @@ func SelectPlayerByDiscordId(discordId string) (models.Player, error) {
 		&player.PermsLvl,
 		&player.DiscordID,
 		&player.LinkCode,
+		&player.CountUnlink,
 	)
 
 	return player, err
@@ -60,6 +62,7 @@ func SelectPlayerBySteamId(steamId string) (models.Player, error) {
 		&player.PermsLvl,
 		&player.DiscordID,
 		&player.LinkCode,
+		&player.CountUnlink,
 	)
 
 	return player, err
